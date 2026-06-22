@@ -10,3 +10,32 @@ Express API secured with Microsoft Entra ID access tokens.
 ## Run
 pnpm install
 pnpm dev
+
+
+
+
+## Naming Conventions
+
+Tables: PascalCase Plural
+
+Users
+Locations
+Roles
+Permissions
+RolePermissions
+UserLocationRoles
+
+Columns: PascalCase Singular
+
+Id
+UserId
+LocationId
+CreatedDate
+UpdatedDate
+
+TypeScript Models: Singular
+
+User.ts
+Location.ts
+Role.ts
+Permission.ts
