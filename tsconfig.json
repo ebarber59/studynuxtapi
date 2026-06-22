@@ -9,7 +9,8 @@
     "skipLibCheck": true,
 
     "resolveJsonModule": true,
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
 
     "ignoreDeprecations": "6.0"
   }
