@@ -1,29 +1,39 @@
 USE apptemplate;
 
+SET @EricUserId =
+(
+    SELECT Id
+    FROM Users
+    WHERE Email = 'ebarber@spearmintrho.com'
+);
+    
+
 INSERT INTO Locations
 (
     Code,
-    Name
+    Name,
+    CreatedBy,
+    UpdatedBy
 )
 VALUES
-('ALL', 'All Locations'),
-('ANA', 'California Girls - Anaheim'),
-('COI', 'City of Industry'),
-('DAL', 'Dallas'),
-('DAL2', 'Dallas II'),
-('DNGLA', 'Dames N Games - Los Angeles'),
-('DNGGR', 'Dames N Games - Grand Rapids'),
-('LEX', 'Lexington'),
-('OLY', 'Los Angeles'),
-('OX', 'Oxnard'),
-('RI', 'Rialto'),
-('SA', 'Santa Ana'),
-('SB', 'Santa Barbara'),
-('SM', 'Santa Maria'),
-('SMGC', 'Boise'),
-('TOR', 'Torrance'),
-('WCV', 'Carter Lake - WCV'),
-('WPB', 'West Palm Beach'),
-('MN', 'Minneapolis'),
-('PITT', 'Pittsburgh'),
-('SJ', 'San Jose');
+('ALL', 'All Locations', @EricUserId, @EricUserId),
+('ANA', 'California Girls - Anaheim', @EricUserId, @EricUserId),
+('COI', 'City of Industry', @EricUserId, @EricUserId),
+('DAL', 'Dallas', @EricUserId, @EricUserId),
+('DAL2', 'Dallas II', @EricUserId, @EricUserId),
+('DNGLA', 'Dames N Games - Los Angeles', @EricUserId, @EricUserId),
+('DNGGR', 'Dames N Games - Grand Rapids', @EricUserId, @EricUserId),
+('LEX', 'Lexington', @EricUserId, @EricUserId),
+('OLY', 'Los Angeles', @EricUserId, @EricUserId),
+('OX', 'Oxnard', @EricUserId, @EricUserId),
+('RI', 'Rialto', @EricUserId, @EricUserId),
+('SA', 'Santa Ana', @EricUserId, @EricUserId),
+('SB', 'Santa Barbara', @EricUserId, @EricUserId),
+('SM', 'Santa Maria', @EricUserId, @EricUserId),
+('SMGC', 'Boise', @EricUserId, @EricUserId),
+('TOR', 'Torrance', @EricUserId, @EricUserId),
+('WCV', 'Carter Lake - WCV', @EricUserId, @EricUserId),
+('WPB', 'West Palm Beach', @EricUserId, @EricUserId),
+('MN', 'Minneapolis', @EricUserId, @EricUserId),
+('PITT', 'Pittsburgh', @EricUserId, @EricUserId),
+('SJ', 'San Jose', @EricUserId, @EricUserId);

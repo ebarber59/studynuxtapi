@@ -1,19 +1,19 @@
 export type AuthProvider = "entra" | "local";
 
 export interface CurrentUser {
-  authProvider: AuthProvider;
+  userId: number;
 
-  // Internal app identity
-  appUserId?: string;
+  authProvider: "entra" | "local";
 
-  // Entra identity
   entraObjectId?: string;
-  tenantId?: string;
 
   email: string;
-  name: string;
 
-  scopes: string[];
+  displayName: string;
+
   roles: string[];
+
   permissions: string[];
+
+  locations: string[];
 }

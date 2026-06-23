@@ -1,24 +1,42 @@
 USE apptemplate;
 
+SET @EricUserId =
+(
+    SELECT Id
+    FROM Users
+    WHERE Email = 'ebarber@spearmintrho.com'
+);
+
+
 INSERT INTO Roles
 (
     Name,
-    Description
+    Description,
+    CreatedBy,
+    UpdatedBy
 )
 VALUES
 (
     'IT Admin',
-    'Global system administrator'
+    'Global system administrator',
+    @EricUserId,
+    @EricUserId
 ),
 (
     'District Manager',
-    'Multi-location manager'
+    'Multi-location manager',
+    @EricUserId,
+    @EricUserId
 ),
 (
     'Manager',
-    'Single location manager'
+    'Single location manager',
+    @EricUserId,
+    @EricUserId
 ),
 (
     'Cashier',
-    'Cashier role'
+    'Cashier role',
+    @EricUserId,
+    @EricUserId
 );
