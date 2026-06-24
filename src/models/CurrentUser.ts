@@ -1,13 +1,15 @@
-import { UserAssignment } from "../models/UserAssignment";
+// src/models/CurrentUser.ts
 
-export type AuthProvider = "entra" | "local";
+import { UserAssignment } from "./UserAssignment";
 
 export interface CurrentUser {
   userId: number;
 
-  authProvider: AuthProvider;
+  authProvider: "entra" | "local";
 
   entraObjectId?: string;
+
+  username?: string;
 
   email: string;
 
@@ -18,6 +20,4 @@ export interface CurrentUser {
   assignments: UserAssignment[];
 
   permissions: string[];
-
-  tenantId?: string;
 }

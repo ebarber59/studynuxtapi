@@ -2,6 +2,7 @@
 
 import cors from "cors";
 import express from "express";
+import { requestLogger } from "./middleware/request-logger";
 import usersRoutes from "./routes/users.routes";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(requestLogger);
 
 app.use("/api/users", usersRoutes);
 

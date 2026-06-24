@@ -18,4 +18,8 @@ export interface User {
   createdDate?: Date;
 
   updatedDate?: Date;
+
+  createdBy?: number | null;
+
+  updatedBy?: number | null;
 }

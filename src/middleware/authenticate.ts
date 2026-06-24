@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtHeader, SigningKeyCallback } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
-import { CurrentUser } from "../types/currentUser";
 import { authConfig } from "../config/auth-config";
+
+import * as usersService from "../services/users.service";
 
 const tenantId = process.env.ENTRA_TENANT_ID;
 const expectedAudience = process.env.ENTRA_API_AUDIENCE;
@@ -51,11 +52,6 @@ function verifyJwt(token: string): Promise<any> {
       complete: true,
     }) as any;
 
-    console.log("Issuer:", decoded?.payload?.iss);
-    console.log("Audience:", decoded?.payload?.aud);
-    console.log("Version:", decoded?.payload?.ver);
-    console.log("Scope:", decoded?.payload?.scp);
-
     jwt.verify(
       token,
       getSigningKey,
@@ -90,9 +86,7 @@ export async function authenticate(
     }
 
     const token = authHeader.substring("Bearer ".length);
-
     const claims = await verifyJwt(token);
-
     const scopes = typeof claims.scp === "string" ? claims.scp.split(" ") : [];
 
     if (!scopes.includes(requiredScope)) {
@@ -102,32 +96,27 @@ export async function authenticate(
       });
     }
 
-    const currentUser: CurrentUser = {
-      authProvider: "entra",
+    if (!claims.oid) {
+      return res.status(401).json({
+        error: "Missing Entra Object Id",
+      });
+    }
 
-      entraObjectId: claims.oid,
-      tenantId: claims.tid,
+    console.log("OID from token:", claims.oid);
+    const currentUser = await usersService.buildCurrentUser(claims.oid);
 
-      email: claims.preferred_username ?? claims.upn ?? claims.email ?? "",
-
-      name: claims.name ?? "",
-
-      scopes,
-
-      // These will eventually come from your app DB
-      roles: [],
-      permissions: [],
-    };
+    if (!currentUser) {
+      return res.status(403).json({
+        error: "User not provisioned",
+      });
+    }
 
     (req as any).user = currentUser;
 
     next();
   } catch (error: any) {
     console.error("[auth] token validation failed:", error);
-    console.error(
-      "[auth] token validation failed, error message:",
-      error.message,
-    );
+
     return res.status(401).json({
       error: "Invalid or expired token",
     });

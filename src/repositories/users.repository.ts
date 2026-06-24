@@ -13,7 +13,11 @@ export async function findById(id: number): Promise<User | null> {
       Username,
       Email,
       DisplayName,
-      IsActive
+      IsActive,    
+      CreatedDate,
+      CreatedBy,
+      UpdatedDate,
+      UpdatedBy
     FROM Users
     WHERE Id = ?
     `,
@@ -23,8 +27,8 @@ export async function findById(id: number): Promise<User | null> {
   if (rows.length === 0) {
     return null;
   }
-
-  return mapUser(rows[0]);
+  const user = mapUser(rows[0]);
+  return user;
 }
 
 export async function findByEmail(email: string): Promise<User | null> {
@@ -37,7 +41,11 @@ export async function findByEmail(email: string): Promise<User | null> {
       Username,
       Email,
       DisplayName,
-      IsActive
+      IsActive,    
+      CreatedDate,
+      CreatedBy,
+      UpdatedDate,
+      UpdatedBy
     FROM Users
     WHERE Email = ?
     `,
@@ -63,7 +71,11 @@ export async function findByEntraObjectId(
       Username,
       Email,
       DisplayName,
-      IsActive
+      IsActive,    
+      CreatedDate,
+      CreatedBy,
+      UpdatedDate,
+      UpdatedBy
     FROM Users
     WHERE EntraObjectId = ?
     `,
@@ -74,7 +86,8 @@ export async function findByEntraObjectId(
     return null;
   }
 
-  return mapUser(rows[0]);
+  const user = mapUser(rows[0]);
+  return user;
 }
 
 function mapUser(row: any): User {
@@ -91,6 +104,22 @@ function mapUser(row: any): User {
 
     displayName: row.DisplayName,
 
-    isActive: row.IsActive === 1,
+    isActive: bitToBoolean(row.IsActive),
+
+    createdDate: row.CreatedDate,
+
+    createdBy: row.CreatedBy ?? undefined,
+
+    updatedDate: row.UpdatedDate,
+
+    updatedBy: row.UpdatedBy ?? undefined,
   };
+}
+
+function bitToBoolean(value: any): boolean {
+  if (Buffer.isBuffer(value)) {
+    return value[0] === 1;
+  }
+
+  return value === 1 || value === true;
 }
