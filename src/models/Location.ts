@@ -2,16 +2,12 @@
 
 export interface Location {
   id: number;
-
   code: string;
-
   name: string;
-
   isActive: boolean;
-
+  isDeleted: boolean;
   createdDate: Date;
   createdBy?: number;
-
   updatedDate: Date;
   updatedBy?: number;
 }

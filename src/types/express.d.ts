@@ -1,9 +1,11 @@
-import { CurrentUser } from "./currentUser";
+import { CurrentUser } from '../models/currentUser';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: CurrentUser;
+      currentUser?: CurrentUser;
     }
   }
 }
+
+export {};
