@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import * as usersService from "../services/users.service";
 
 export async function getCurrentUser(req: Request, res: Response) {
-  const user = await usersService.getCurrentUser(req.user!.userId);
-
-  res.json(user);
+  console.log("[users.controller] Current User:", req.user);
+  return res.status(200).json(req.user);
 }

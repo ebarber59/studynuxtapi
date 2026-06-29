@@ -1,3 +1,5 @@
+use eposnext;
+
 CREATE TABLE Users (
     Id INT AUTO_INCREMENT PRIMARY KEY,
 
@@ -11,16 +13,14 @@ CREATE TABLE Users (
 
     DisplayName VARCHAR(255) NOT NULL,
 
-    IsActive BIT NOT NULL DEFAULT 1,
+    IsActive    BIT NOT NULL DEFAULT 1,
+    IsDeleted   BIT NOT NULL DEFAULT 0,
 
     CreatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
     CreatedBy INT NULL,
 
-    UpdatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP,
-
-    UpdatedBy INT NULL
+    UpdatedDate DATETIME NULL,
+    UpdatedBy   INT NULL
 );
 
 CREATE UNIQUE INDEX UX_Users_Email

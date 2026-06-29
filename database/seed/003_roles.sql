@@ -1,10 +1,10 @@
-USE apptemplate;
+use eposnext;
 
 SET @EricUserId =
 (
     SELECT Id
     FROM Users
-    WHERE Email = 'ebarber@spearmintrho.com'
+    WHERE Email = 'ebarber@spearmintrho.com',
 );
 
 
@@ -13,30 +13,40 @@ INSERT INTO Roles
     Name,
     Description,
     CreatedBy,
-    UpdatedBy
+    UpdatedBy,
+    IsActive,
+    IsDeleted
 )
 VALUES
 (
     'IT Admin',
     'Global system administrator',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 ),
 (
     'District Manager',
     'Multi-location manager',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 ),
 (
     'Manager',
     'Single location manager',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 ),
 (
     'Cashier',
     'Cashier role',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 );

@@ -1,4 +1,4 @@
-USE apptemplate;
+use eposnext;
 
 SET @EricUserId =
 (

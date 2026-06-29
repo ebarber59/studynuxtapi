@@ -1,4 +1,4 @@
-USE apptemplate;
+use eposnext;
 
 CREATE TABLE UserLocationRoles (
     UserId INT NOT NULL,
@@ -7,14 +7,14 @@ CREATE TABLE UserLocationRoles (
 
     RoleId INT NOT NULL,
 
-        CreatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    IsActive    BIT NOT NULL DEFAULT 1,
+    IsDeleted   BIT NOT NULL DEFAULT 0,
 
-    CreatedBy INT NULL,
+    CreatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CreatedBy   INT NULL,
 
-    UpdatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP,
-
-    UpdatedBy INT NULL,
+    UpdatedDate DATETIME NULL,
+    UpdatedBy   INT NULL,
 
     PRIMARY KEY (
         UserId,

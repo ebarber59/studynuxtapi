@@ -1,4 +1,4 @@
-USE apptemplate;
+use eposnext;
 
 CREATE TABLE Roles (
     Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,6 +8,7 @@ CREATE TABLE Roles (
     Description VARCHAR(500) NULL,
 
     IsActive BIT NOT NULL DEFAULT 1,
+    IsDeleted   BIT NOT NULL DEFAULT 0,
 
     CreatedDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

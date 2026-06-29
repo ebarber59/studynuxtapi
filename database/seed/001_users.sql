@@ -1,4 +1,4 @@
-USE apptemplate;
+use eposnext;
 
 INSERT INTO Users
 (
@@ -7,16 +7,20 @@ INSERT INTO Users
     Email,
     DisplayName,
     CreatedBy,
-    UpdatedBy
+    UpdatedBy,
+    IsActive,
+    IsDeleted
 )
 VALUES
 (
     'entra',
-    '74a909fd-b00c-4f8f-a473-c2cecf25c211',
+    'a4796ac5-36f6-4b95-b6dc-9a9f1ddf7daf',
     'ebarber@spearmintrhino.com',
     'Eric Barber',
     null,
-    null
+    null,
+    1,
+    0
 );
 
 SET @EricUserId =
@@ -33,7 +37,9 @@ INSERT INTO Users
     Email,
     DisplayName,
     CreatedBy,
-    UpdatedBy
+    UpdatedBy,
+    IsActive,
+    IsDeleted
 )
 VALUES
 (
@@ -42,7 +48,9 @@ VALUES
     'shawn@example.com',
     'Shawn',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 );
 
 INSERT INTO Users
@@ -52,7 +60,9 @@ INSERT INTO Users
     Email,
     DisplayName,
     CreatedBy,
-    UpdatedBy
+    UpdatedBy,
+    IsActive,
+    IsDeleted
 )
 VALUES
 (
@@ -61,5 +71,7 @@ VALUES
     'jane@club.local',
     'Jane',
     @EricUserId,
-    @EricUserId
+    @EricUserId,
+    1,
+    0
 );

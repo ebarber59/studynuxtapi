@@ -1,4 +1,4 @@
-USE apptemplate;
+use eposnext;
 
 SET @EricUserId =
 (
@@ -34,7 +34,9 @@ AND p.Name IN
     'sales.edit',
     'inventory.view',
     'inventory.edit',
-    'reports.view'
+    'reports.view',
+    'admin-dashboard.view',
+    'admin-dashboard.manage',
 );
 
 -- District Manager
@@ -87,10 +89,31 @@ AND p.Name IN
     'sales.edit',
     'inventory.view',
     'inventory.edit',
-    'reports.view'
+    'reports.view',
+    'manager-dashboard.view'
 );
 
 -- Cashier
+
+INSERT INTO RolePermissions
+(
+    RoleId,
+    PermissionId,
+    CreatedBy,
+    UpdatedBy
+)
+SELECT
+    r.Id,
+    p.Id,
+    @EricUserId,
+    @EricUserId
+FROM Roles r
+INNER JOIN Permissions p
+WHERE r.Name = 'Cashier'
+AND p.Name IN
+(
+    'sales.view'
+);
 
 INSERT INTO RolePermissions
 (
