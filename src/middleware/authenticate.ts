@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt, { JwtHeader, SigningKeyCallback } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import { authConfig } from "../config/auth-config";
-
+import type { CurrentUser } from "../models/CurrentUser";
 import * as usersService from "../services/users.service";
 
 const tenantId = process.env.ENTRA_TENANT_ID;
@@ -103,7 +103,9 @@ export async function authenticate(
     }
 
     console.log("OID from token:", claims.oid);
-    const currentUser = await usersService.buildCurrentUser(claims.oid);
+    const currentUser: CurrentUser | null = await usersService.buildCurrentUser(
+      claims.oid,
+    );
 
     if (!currentUser) {
       return res.status(403).json({
@@ -111,8 +113,7 @@ export async function authenticate(
       });
     }
 
-    (req as any).user = currentUser;
-
+    req.currentUser = currentUser;
     next();
   } catch (error: any) {
     console.error("[auth] token validation failed:", error);

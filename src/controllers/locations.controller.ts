@@ -16,6 +16,9 @@ export async function getById(req: Request, res: Response) {
 }
 
 export async function create(req: Request, res: Response) {
+  console.log("req.currentUser:", req.currentUser);
+  console.log("req.user:", req.currentUser);
+
   const id = await locationService.create(req.body, req.currentUser!.userId);
 
   res.status(201).json({ id });
